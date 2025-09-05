@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.databricksConnection</groupId>
+  <artifactId>databricksConnectionSample</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Databricks Java Connection</name>
+  <description>A sample connection to a Databricks instance on the open Internet.</description>
+  <properties>
+  	<databricks-sdk-version>0.60.0</databricks-sdk-version>
+  	<databricks-utils-scala-version>0.1.4</databricks-utils-scala-version>
+  	<logback.version>1.5.18</logback.version>
+  	<databricks-jdbc-version>2.7.3</databricks-jdbc-version>
+  	<spark.version>2.4.5</spark.version>
+  	<scala.version>2.12.12</scala.version>
+  	<maven-compiler-version>3.8.1</maven-compiler-version>
+  	<maven-jar-version>3.0.2</maven-jar-version>
+  	<java-source-version>17</java-source-version>
+  	<java-target-version>17</java-target-version>
+  	<!--
+		<databricks-sdk-version>${env.DATABRICKS_SDK_VERSION}</databricks-sdk-version>
+		<databricks-utils-scala-version>${env.DATABRICKS_SCALA_VERSION}</databricks-utils-scala-version>
+		
+	-->
+  </properties>
+  
+  <dependencies>
+	<dependency>
+		<groupId>org.scala-lang</groupId>
+		<artifactId>scala-library</artifactId>
+		<version>${scala.version}</version>
+	</dependency>
+	
+  	<dependency>
+    	<groupId>com.databricks</groupId>
+    	<artifactId>databricks-sdk-java</artifactId>
+    	<version>${databricks-sdk-version}</version>
+  	</dependency>
+  	
+  	<dependency>
+ 	 	<groupId>com.databricks</groupId>
+     	<artifactId>databricks-dbutils-scala_2.13</artifactId>
+ 	 	<version>${databricks-utils-scala-version}</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>com.databricks</groupId>
+    	<artifactId>databricks-jdbc</artifactId>
+    	<version>${databricks-jdbc-version}</version> <!-- Use the latest version -->
+	</dependency>
+	
+	<dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-core_2.12</artifactId>
+        <version>${spark.version}</version>
+	</dependency>
+
+	<dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-sql_2.12</artifactId>
+        <version>${spark.version}</version>
+    </dependency>
+    
+    <dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-classic</artifactId>
+	    <version>${logback.version}</version>
+	</dependency>
+</dependencies>
+
+<repositories>
+        <!-- list of other repositories -->
+        <repository>
+            <id>SparkPackagesRepo</id>
+            <url>http://dl.bintray.com/spark-packages/maven</url>
+        </repository>
+    </repositories>
+    <build>
+        <plugins>
+        	<plugin>
+        	<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-version}</version>
+				<configuration>
+					<source>${java-source-version}</source>
+					<target>${java-target-version}</target>
+				</configuration>
+			</plugin>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>main.example.SimpleExample</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
